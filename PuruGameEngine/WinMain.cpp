@@ -1,4 +1,4 @@
-#include"PuruGameSystem.h"
+#include "PuruGameSystem.h"
 #include "puruQuad.h"
 #include "puruTexture.h"
 #include "puruSprite.h"

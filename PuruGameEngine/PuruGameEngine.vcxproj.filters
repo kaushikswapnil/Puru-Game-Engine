@@ -5,212 +5,227 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source\Engine">
+      <UniqueIdentifier>{37d7379f-4cad-4555-95d5-92deac885ff4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Graphics">
+      <UniqueIdentifier>{c8828a94-af13-4ce7-8ea4-321420d627f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Input">
+      <UniqueIdentifier>{ea1724ea-3ada-4150-9a11-deb413b7a593}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Essentials">
+      <UniqueIdentifier>{a3e2ce92-2ec5-461a-97f8-e0cae021e62f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Sound">
+      <UniqueIdentifier>{83febbbd-5d3f-4368-a424-2c7fa8a770a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ColorShaderClass.h">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClInclude>
     <ClInclude Include="BitmapClass.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source\Engine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="CameraClass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ColorShaderClass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="D3DClass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsClass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InputClass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PuruGameSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureClass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureShaderClass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="puruRect.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="puruSprite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SystemState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="puruAnim.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="puruQuad.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Singleton.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source\Engine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="CCriticalSection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundClass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TextClass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TimerClass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FontShaderClass.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source\Engine\Essentials</Filter>
     </ClInclude>
     <ClInclude Include="ColorModelClass.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DClass.h">
+      <Filter>Source\Engine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="FontClass.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="FontShaderClass.h">
+      <Filter>Source\Engine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Globals.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="puruTexture.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GraphicsClass.h">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="InputClass.h">
+      <Filter>Source\Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="puruAnim.h">
+      <Filter>Source\Engine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="puruFont.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="puruSound.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundFileClass.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source\Engine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="puruGUI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="puruGUIObject.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source\Engine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="puruGUIMenuItem.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="puruGUIObject.h">
+      <Filter>Source\Engine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="puruGUIText.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="puruQuad.h">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="puruRect.h">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="puruSound.h">
+      <Filter>Source\Engine\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundClass.h">
+      <Filter>Source\Engine\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundFileClass.h">
+      <Filter>Source\Engine\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Source\Engine\Essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="PuruGameSystem.h">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="puruSprite.h">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="puruTexture.h">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="TextClass.h">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureClass.h">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureShaderClass.h">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerClass.h">
+      <Filter>Source\Engine\Essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemState.h">
+      <Filter>Source\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BitmapClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ColorShaderClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="D3DClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="InputClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PuruGameSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureShaderClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="puruRect.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="puruSprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SystemState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="WinMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="puruAnim.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="puruQuad.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Singleton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CCriticalSection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CpuClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FontClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FontShaderClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FpsClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TextClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TimerClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ColorModelClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Globals.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="puruTexture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="puruFont.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="puruSound.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundFileClass.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source\Engine\Essentials</Filter>
     </ClCompile>
     <ClCompile Include="puruGUI.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source\Engine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="puruGUIObject.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="puruFont.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="puruAnim.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsClass.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="FontShaderClass.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="FontClass.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="D3DClass.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="CpuClass.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorShaderClass.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorModelClass.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraClass.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="BitmapClass.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="puruGUIMenuItem.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="puruGUIObject.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="puruGUIText.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="puruRect.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="puruQuad.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="puruSprite.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="puruTexture.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="TextClass.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureClass.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureShaderClass.cpp">
+      <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="FpsClass.cpp">
+      <Filter>Source\Engine\Essentials</Filter>
+    </ClCompile>
+    <ClCompile Include="InputClass.cpp">
+      <Filter>Source\Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="puruSound.cpp">
+      <Filter>Source\Engine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundClass.cpp">
+      <Filter>Source\Engine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundFileClass.cpp">
+      <Filter>Source\Engine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Singleton.cpp">
+      <Filter>Source\Engine\Essentials</Filter>
+    </ClCompile>
+    <ClCompile Include="Globals.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="PuruGameSystem.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemState.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerClass.cpp">
+      <Filter>Source\Engine\Essentials</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
