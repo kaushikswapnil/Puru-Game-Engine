@@ -5,6 +5,12 @@
 
 #include"Singleton.h"
 #include"SystemState.h"
+#include "InputClass.h"
+#include "GraphicsClass.h"
+#include "SoundClass.h"
+#include "FpsClass.h"
+#include "CpuClass.h"
+#include "TimerClass.h"
 
 class GraphicsClass;
 class InputClass;
@@ -13,16 +19,13 @@ class FpsClass;
 class TimerClass;
 class CpuClass;
 
-class PuruGameSystem : public Singleton
+class PuruGameSystem
 {
+	pge_SINGLETON_SIMPLE(PuruGameSystem)
 public:
-	static PuruGameSystem*	GetInstance();
-
-	~PuruGameSystem();
 
 	bool Initialize();
 	void Shutdown();
-	void DestroyInstance();
 
 	void Run();
 
@@ -33,8 +36,8 @@ public:
 	inline void System_SetState(puruBoolState state, bool value) { m_SystemState.SetState(state, value); }
 	inline void System_SetState(puruIntState state, int value) { m_SystemState.SetState(state, value); }
 
-	//Graphics functions
-	GraphicsClass* GetGraphics() { return m_Graphics; }
+	//Graphics functions	
+	GraphicsClass* GetGraphics() { return &m_Graphics; }
 
 	void Gfx_BeginScene(float red, float green = 0.0f, float blue = 0.0f, float a = 1.0f);
 	void Gfx_EndScene();
@@ -56,30 +59,25 @@ public:
 	int Fps_GetFPS();
 	int Cpu_GetCpuUsage();
 
-private:
-	PuruGameSystem();
-	PuruGameSystem(const PuruGameSystem&) = delete;
-	PuruGameSystem& operator=(const PuruGameSystem& other) = delete;
-	static PuruGameSystem* m_pgeInstance;
-
 	bool Frame();
 	void InitializeWindows(int&, int&);
 	void ShutdownWindows();
 
 private:
-	LPCWSTR m_applicationName;
-	HINSTANCE m_hInstance;
-	HWND m_hwnd;
+	LPCWSTR m_ApplicationName;
+	HINSTANCE m_HInstance;
+	HWND m_Hwnd;
 
 	//Framework Classes
-	InputClass* m_Input;
-	GraphicsClass* m_Graphics;
-	SoundClass* m_Sound;
+	//#TODO replace all with references to non copyable classes
+	InputClass m_Input;
+	GraphicsClass m_Graphics;
+	SoundClass m_Sound;
 
 	//Timer and Performance classes
-	FpsClass* m_Fps;
-	CpuClass* m_Cpu;
-	TimerClass* m_Timer;
+	FpsClass m_Fps;
+	CpuClass m_Cpu;
+	TimerClass m_Timer;
 
 	//State handling classes
 	SystemState m_SystemState;

@@ -7,30 +7,6 @@
 #include"TimerClass.h"
 #include"Globals.h"
 
-PuruGameSystem* PuruGameSystem::m_pgeInstance;
-
-PuruGameSystem::PuruGameSystem() : Singleton(), m_Input(nullptr), m_Graphics(nullptr), m_dtFrameCallTime(0.0f)
-{
-}
-
-PuruGameSystem * PuruGameSystem::GetInstance()
-{
-	if (!m_pgeInstance)
-	{
-		m_cs.Lock();
-		if (!m_pgeInstance)
-		{
-			m_pgeInstance = new PuruGameSystem();
-		}
-		m_cs.Unlock();
-	}
-	return m_pgeInstance;
-}
-
-PuruGameSystem::~PuruGameSystem()
-{
-}
-
 bool PuruGameSystem::Initialize()
 {
 	if (!m_SystemState.SystemReady())
@@ -47,75 +23,34 @@ bool PuruGameSystem::Initialize()
 	//initialize the old windows API
 	InitializeWindows(screenWidth, screenHeight);
 
-	//Create the input object. This object will be used to handle reading the keyboard input from the user
-	m_Input = new InputClass();
-	if (!m_Input)
-	{
-		return false;
-	}
-
-	//Initialize input object
-	m_Input->Initialize(m_hInstance, m_hwnd, screenWidth, screenHeight);
-
-	//Create the graphics object to handle all rendering
-	m_Graphics = new GraphicsClass();
-	if (!m_Graphics)
-	{
-		return false;
-	}
+	//Initialize input object. This object will be used to handle reading the keyboard input from the user
+	m_Input.Initialize(m_HInstance, m_Hwnd, screenWidth, screenHeight);
 
 	//initialize the graphics object
-	result = m_Graphics->Initialize(screenWidth, screenHeight, m_hwnd);
+	result = m_Graphics.Initialize(screenWidth, screenHeight, m_Hwnd);
 	if (!result)
 	{
 		return false;
 	}
 
-	m_Sound = new SoundClass();
-	if (!m_Sound)
-	{
-		return false;
-	}
-
-	result = m_Sound->Initialize(m_hwnd);
+	result = m_Sound.Initialize(m_Hwnd);
 	if (!result)
 	{
-		MessageBox(m_hwnd, L"Could not initialize Direct Sound.", L"Error", MB_OK);
-		return false;
-	}
-
-	// Create the fps object.
-	m_Fps = new FpsClass();
-	if (!m_Fps)
-	{
+		MessageBox(m_Hwnd, L"Could not initialize Direct Sound.", L"Error", MB_OK);
 		return false;
 	}
 
 	// Initialize the fps object.
-	m_Fps->Initialize();
-
-	// Create the cpu object.
-	m_Cpu = new CpuClass();
-	if (!m_Cpu)
-	{
-		return false;
-	}
+	m_Fps.Initialize();
 
 	// Initialize the cpu object.
-	m_Cpu->Initialize();
-
-	// Create the timer object.
-	m_Timer = new TimerClass();
-	if (!m_Timer)
-	{
-		return false;
-	}
+	m_Cpu.Initialize();
 
 	// Initialize the timer object.
-	result = m_Timer->Initialize();
+	result = m_Timer.Initialize();
 	if (!result)
 	{
-		MessageBox(m_hwnd, L"Could not initialize the Timer object.", L"Error", MB_OK);
+		MessageBox(m_Hwnd, L"Could not initialize the Timer object.", L"Error", MB_OK);
 		return false;
 	}
 
@@ -126,62 +61,8 @@ bool PuruGameSystem::Initialize()
 
 void PuruGameSystem::Shutdown()
 {
-	// Release the timer object.
-	if (m_Timer)
-	{
-		delete m_Timer;
-		m_Timer = nullptr;
-	}
-
-	// Release the cpu object.
-	if (m_Cpu)
-	{
-		m_Cpu->Shutdown();
-		delete m_Cpu;
-		m_Cpu = nullptr;
-	}
-
-	// Release the fps object.
-	if (m_Fps)
-	{
-		delete m_Fps;
-		m_Fps = nullptr;
-	}
-
-	if (m_Sound)
-	{
-		m_Sound->Shutdown();
-		delete m_Sound;
-		m_Sound = nullptr;
-	}
-
-	if (m_Graphics)
-	{
-		m_Graphics->Shutdown();
-		delete m_Graphics;
-		m_Graphics = nullptr;
-	}
-
-	if (m_Input)
-	{
-		m_Input->Shutdown();
-		delete m_Input;
-		m_Input = nullptr;
-	}
-
 	//Shutdown windows
 	ShutdownWindows();
-
-	DestroyInstance();
-}
-
-void PuruGameSystem::DestroyInstance()
-{
-	if (m_pgeInstance)
-	{
-		delete m_pgeInstance;
-		m_pgeInstance = nullptr;
-	}
 }
 
 void PuruGameSystem::Run()
@@ -209,11 +90,11 @@ void PuruGameSystem::Run()
 		}
 		else
 		{
-			m_Timer->OutsideFrame();
+			m_Timer.OutsideFrame();
 			//Frame processing
 			if (GraphicsGlobals::FPS > 0) //Only process frame during frame time
 			{
-				m_dtFrameCallTime -= m_Timer->GetLastCallTime();
+				m_dtFrameCallTime -= m_Timer.GetLastCallTime();
 				if (m_dtFrameCallTime > 0.0f)
 				{
 					continue;
@@ -236,12 +117,12 @@ LRESULT PuruGameSystem::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, LPAR
 
 void PuruGameSystem::Gfx_BeginScene(float red, float green, float blue, float a)
 {
-	m_Graphics->BeginScene(red, green, blue, a);
+	m_Graphics.BeginScene(red, green, blue, a);
 }
 
 void PuruGameSystem::Gfx_EndScene()
 {
-	m_Graphics->EndScene();
+	m_Graphics.EndScene();
 }
 
 int PuruGameSystem::Gfx_GetScreenWidth()
@@ -256,51 +137,51 @@ int PuruGameSystem::Gfx_GetScreenHeight()
 
 bool PuruGameSystem::Input_IsKeyDown(int key)
 {
-	return m_Input->IsKeyDown(key);
+	return m_Input.IsKeyDown(key);
 }
 
 bool PuruGameSystem::Input_IsKeyUp(int key)
 {
-	return m_Input->IsKeyUp(key);
+	return m_Input.IsKeyUp(key);
 }
 
 bool PuruGameSystem::Input_IsMouseLButtonDown()
 {
-	return m_Input->IsMouseLButtonDown();
+	return m_Input.IsMouseLButtonDown();
 }
 
 void PuruGameSystem::Input_GetMousePosition(int & x, int & y)
 {
-	m_Input->GetMouseLocation(x, y);
+	m_Input.GetMouseLocation(x, y);
 }
 
 SoundClass * PuruGameSystem::GetSound()
 {
-	return m_Sound;
+	return &m_Sound;
 }
 
 float PuruGameSystem::Timer_GetDelta()
 {
-	return m_Timer->GetTime();
+	return m_Timer.GetTime();
 }
 
 int PuruGameSystem::Fps_GetFPS()
 {
-	return m_Fps->GetFPS();
+	return m_Fps.GetFPS();
 }
 
 int PuruGameSystem::Cpu_GetCpuUsage()
 {
-	return m_Cpu->GetCpuPercentage();
+	return m_Cpu.GetCpuPercentage();
 }
 
 bool PuruGameSystem::Frame()
 {
 	bool result;
 
-	m_Timer->Frame();
-	m_Fps->Frame();
-	m_Cpu->Frame();
+	m_Timer.Frame();
+	m_Fps.Frame();
+	m_Cpu.Frame();
 
 	result = m_SystemState.m_frameFunc();
 	if (!result)
@@ -315,7 +196,7 @@ bool PuruGameSystem::Frame()
 	}
 
 	//Do frame processing for Input
-	result = m_Input->Frame();
+	result = m_Input.Frame();
 	if (!result)
 	{
 		return false;
@@ -334,23 +215,23 @@ void PuruGameSystem::InitializeWindows(int & screenWidth, int & screenHeight)
 	ApplicationHandle = this;
 
 	//Get the instance of this application
-	m_hInstance = GetModuleHandle(NULL);
+	m_HInstance = GetModuleHandle(NULL);
 
 	//Give the Application a name
-	m_applicationName = L"DX Practice Puru";
+	m_ApplicationName = L"DX Practice Puru";
 
 	//Setup the windows class with defaults
 	wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
 	wc.lpfnWndProc = WndProc;
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
-	wc.hInstance = m_hInstance;
+	wc.hInstance = m_HInstance;
 	wc.hIcon = LoadIcon(NULL, IDI_WINLOGO);
 	wc.hIconSm = wc.hIcon;
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 	wc.lpszMenuName = NULL;
-	wc.lpszClassName = m_applicationName;
+	wc.lpszClassName = m_ApplicationName;
 	wc.cbSize = sizeof(WNDCLASSEX);
 
 	//Register window class
@@ -388,14 +269,14 @@ void PuruGameSystem::InitializeWindows(int & screenWidth, int & screenHeight)
 	}
 
 	//Create the window with screen settings and get its handle
-	m_hwnd = CreateWindowEx(WS_EX_APPWINDOW, m_applicationName, m_applicationName,
+	m_Hwnd = CreateWindowEx(WS_EX_APPWINDOW, m_ApplicationName, m_ApplicationName,
 		WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_POPUP,
-		posX, posY, screenWidth, screenHeight, NULL, NULL, m_hInstance, NULL);
+		posX, posY, screenWidth, screenHeight, NULL, NULL, m_HInstance, NULL);
 
 	//Bring window up to screen and set as focus
-	ShowWindow(m_hwnd, SW_SHOW);
-	SetForegroundWindow(m_hwnd);
-	SetFocus(m_hwnd);
+	ShowWindow(m_Hwnd, SW_SHOW);
+	SetForegroundWindow(m_Hwnd);
+	SetFocus(m_Hwnd);
 
 	//Hide mouse 
 	ShowCursor(false);
@@ -413,12 +294,12 @@ void PuruGameSystem::ShutdownWindows()
 	}
 
 	//Remove the window
-	DestroyWindow(m_hwnd);
-	m_hwnd = NULL;
+	DestroyWindow(m_Hwnd);
+	m_Hwnd = NULL;
 
 	//Remove the application instance
-	UnregisterClass(m_applicationName, m_hInstance);
-	m_hInstance = NULL;
+	UnregisterClass(m_ApplicationName, m_HInstance);
+	m_HInstance = NULL;
 
 	//Release the pointer to this class
 	ApplicationHandle = NULL;

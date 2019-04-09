@@ -162,6 +162,7 @@
     <ClInclude Include="GraphicsClass.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="InputClass.h" />
+    <ClInclude Include="NonCopyableh.h" />
     <ClInclude Include="puruGUIMenuItem.h" />
     <ClInclude Include="puruAnim.h" />
     <ClInclude Include="puruFont.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="puruSprite.h" />
     <ClInclude Include="puruTexture.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="SmartEnum.h" />
     <ClInclude Include="SoundClass.h" />
     <ClInclude Include="SoundFileClass.h" />
     <ClInclude Include="SystemState.h" />
@@ -209,7 +211,6 @@
     <ClCompile Include="puruSound.cpp" />
     <ClCompile Include="puruSprite.cpp" />
     <ClCompile Include="puruTexture.cpp" />
-    <ClCompile Include="Singleton.cpp" />
     <ClCompile Include="SoundClass.cpp" />
     <ClCompile Include="SoundFileClass.cpp" />
     <ClCompile Include="SystemState.cpp" />

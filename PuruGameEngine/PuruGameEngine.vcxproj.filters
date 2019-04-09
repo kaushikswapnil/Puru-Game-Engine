@@ -123,6 +123,12 @@
     <ClInclude Include="SystemState.h">
       <Filter>Source\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="NonCopyableh.h">
+      <Filter>Source\Engine\Essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="SmartEnum.h">
+      <Filter>Source\Engine\Essentials</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -211,9 +217,6 @@
     </ClCompile>
     <ClCompile Include="SoundFileClass.cpp">
       <Filter>Source\Engine\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="Singleton.cpp">
-      <Filter>Source\Engine\Essentials</Filter>
     </ClCompile>
     <ClCompile Include="Globals.cpp">
       <Filter>Source\Engine</Filter>
