@@ -6,19 +6,24 @@
 //#####################
 //Declare the class and add this macro inside. Make your own destructor.
 
-#define pge_SINGLETON_SIMPLE(_Classname) \
+#define pge_DECLARE_SINGLETON_SIMPLE(_Classname) \
 public: \
 	_Classname(const _Classname&) = delete; \
 	_Classname& operator=(const _Classname&) = delete; \
 	\
-	static _Classname* GetInstance() \
+	static _Classname& GetInstance() \
 	{ \
-		static _Classname m_Instance; \
-		return &m_Instance; \
+		static _Classname instance; \
+		return instance; \
 		\
 	} \
-	\
-private: \
-	_Classname() = default;
+    static _Classname* GetInstance() \
+	{ \
+		return &GetInstance(); \
+		\
+	} \
+
+
+#define pge_DEFINE_SINGLETON_INSTANCE(_Classname)
 
 
