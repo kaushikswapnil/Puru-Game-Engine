@@ -21,57 +21,68 @@
 #define EVALUATE_COUNT(_1, _2, _3, _4, count, ...) count
 #define COUNT(...) IDENTITY(EVALUATE_COUNT(__VA_ARGS__, 4, 3, 2, 1))
 
-#define STRINGIZE_SINGLE(expression) #expression
+#define STRINGIZE_SINGLE(expression) #expression,
 #define STRINGIZE_MULTI_ARGUMENTS(...) IDENTITY(MAP(STRINGIZE_SINGLE, __VA_ARGS__))
+
+struct _ArgumentToIntConverter //We use this struct to convert the enum values to integer values
+{
+	_ArgumentToIntConverter(const int& value) : _m_Value(value) { }
+	_ArgumentToIntConverter& operator=(const int& value) { return *this; }  //This negates any Enum value initializations in the macro argument. Think SMART_ENUM(TestEnum, Red = 1, Blue, Green)
+
+	operator int() const { return _m_Value; }  //This is a type cast operator. Think (int)_ArgumentToIntConverter. Lets this be converted back to an integer
+	int _m_Value;
+};
+
+#define PREFIX__ArgumentToIntConverter_SINGLE(expression) (_ArgumentToIntConverter)expression, //Keeping the comma
+#define PREFIX__ArgumentToIntConverter_MULTI_ARGUMENTS(...) IDENTITY(MAP(PREFIX__ArgumentToIntConverter_SINGLE, __VA_ARGS__))
 
 #define SMART_ENUM(_EnumName, ...) \
 	struct _EnumName \
 	{ \
 		enum _Enumeration \
 		{ \
-			__VA_ARG__ \
+			__VA_ARGS__ \
 		}; \
 		\
 		_EnumName(const _Enumeration& value) : m_Value(value) {} \
 		_EnumName(const _EnumName& other) : m_Value(other.m_Value) {} \
 		const _EnumName& operator=(const _Enumeration& value) { m_Value = value; } \
-		operator _Enumeration() { return static_cast<_Enumeration>(value); } \
+		operator _Enumeration() { return static_cast<_Enumeration>(m_Value); } \
 		\
 		private: \
 		_Enumeration m_Value; \
 		\
-		//We use this struct to convert the enum values to integer values
-		struct _ArgumentToIntConverter \
-		{ \
-			_ArgumentToIntConverter(const int& value) : m_Value(value) {} \
-			_ArgumentToIntConverter& operator=(const int& value) { m_Value = value; } \
-			\
-			operator int() const { return m_Value; } \ //This is a type cast operator. Think (int)_ArgumentToIntConverter. Lets this be converted back to an integer
-			const _ArgumentToIntConverter& operator=(const int& dummy) { return *this; } \ //This negates any Enum value initializations in the macro argument. Think SMART_ENUM(TestEnum, Red = 1, Blue, Green)
-			int m_Value; \
-		}; \
-		\
-		static const int* const GetValues() \
-		{ \
-			static const int _values[] = { PREFIX__ArgumentToIntConverter_MULTI_ARGUMENTS(__VA_ARG__) }; \
-			return values; \
-		} \
-		\
-		static const char* const GetNames() \
-		{ \
-			static const char* _rawNames = { STRINGIZE_MULTI_ARGUMENTS(__VA_ARG__) }; \
+		static const size_t _count = IDENTITY(COUNT(__VA_ARGS__));
+\
+static const int* const _GetValues() \
+{ \
+static const int _values[] = { IDENTITY(PREFIX__ArgumentToIntConverter_MULTI_ARGUMENTS(__VA_ARGS__)) }; \
+return _values; \
+} \
+\
+static const char* const _GetNames() \
+{ \
+static const char* rawNames = { IDENTITY(STRINGIZE_MULTI_ARGUMENTS(__VA_ARGS__)) }; \
+\
+static char* processedNames[_count]; \ //Creating an array 
+static bool initialized = false; \
+\
+if (!initialized) \
+{ \
+for (size_t index = 0; index < _count; ++index) \
+{ \
+//remove offending characters
+size_t length = std::strcspn(rawNames[index], "=\t\n\r"); \ //strcspn returns the first index where any of the characters given matches
+\
+processedNames[index] = new char[length + 1]; \
+\
+std::strncpy(processedNames[index], rawNames[index], length); \//copy good characters
+\
+(processedNames[index])[length] = "\0"; \
+} \
+} \
+\
+return processedNames; \
+} \
+};
 
-			static char* _processedNames[_COUNT];
-			static bool _initialized = false;
-
-			if (!_initialized)
-			{
-
-			}
-
-			return _processedNames; \
-		} \
-	}
-
-#define PREFIX__ArgumentToIntConverter_SINGLE(expression) (_ArgumentToIntConverter)expression, //Keeping the comma
-#define PREFIX__ArgumentToIntConverter_MULTI_ARGUMENTS(...) IDENTITY(MAP(PREFIX__ArgumentToIntConverter_SINGLE, __VA_ARGS__))

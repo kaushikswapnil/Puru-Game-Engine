@@ -11,6 +11,7 @@
 #include "FpsClass.h"
 #include "CpuClass.h"
 #include "TimerClass.h"
+#include "SmartEnum.h"
 
 class GraphicsClass;
 class InputClass;
@@ -21,7 +22,7 @@ class CpuClass;
 
 class PuruGameSystem
 {
-	pge_SINGLETON_SIMPLE(PuruGameSystem)
+	pge_DECLARE_SINGLETON_SIMPLE(PuruGameSystem)
 public:
 
 	bool Initialize();

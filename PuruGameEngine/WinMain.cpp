@@ -61,20 +61,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	bool result;
 
 	//Create system object
-	pge = PuruGameSystem::GetInstance();
+	PGE& pge = PuruGameSystem::GetInstance();
 
-	if(!pge)
-	{
-		return 0;
-	}
-
-	pge->System_SetState(PURU_FRAME, FrameFunc);
-	pge->System_SetState(PURU_RENDER, RenderFunc);
-	pge->System_SetState(PURU_FPS, 60);
+	pge.System_SetState(PURU_FRAME, FrameFunc);
+	pge.System_SetState(PURU_RENDER, RenderFunc);
+	pge.System_SetState(PURU_FPS, 60);
 
 	//Initialize and run system object
 
-	result = pge->Initialize();
+	result = pge.Initialize();
 	if (result)
 	{
 		fnt.Initialize("font1data.txt", "font1.dds");
@@ -91,20 +86,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		gui.AddObject(text2);
 		pmouse.Initialize(L"cursor.dds", 15, 21);
 		sprMouse.Initialize(0, 0, 15, 21, &pmouse);
-		gui.Initialize(pge);
+		gui.Initialize(&pge); //#TODO 
 		gui.SetFocus(1);
 		gui.SetMouse(&sprMouse);
 		ptex.Initialize(L"gamebg.dds", 402, 402);
 		pQuad.Initialize(&ptex, 0.0f, 0.0f, 800, 600);
-		pge->Run();
+		pge.Run();
 	}
 
 	//Shutdown and release system object
 	
 	fnt.Shutdown();
 	snd.Shutdown();
-	pge->Shutdown();
-	pge = nullptr;
+	pge.Shutdown();
 
 	return 0;
 }

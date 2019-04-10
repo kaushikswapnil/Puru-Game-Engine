@@ -230,5 +230,8 @@
     <ClCompile Include="TimerClass.cpp">
       <Filter>Source\Engine\Essentials</Filter>
     </ClCompile>
+    <ClCompile Include="Singleton.cpp">
+      <Filter>Source\Engine\Essentials</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

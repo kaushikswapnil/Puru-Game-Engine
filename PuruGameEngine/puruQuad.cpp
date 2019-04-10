@@ -22,8 +22,8 @@ puruQuad::puruQuad(puruTexture * texture, float texLeft, float texTop, unsigned 
 
 puruQuad::puruQuad(const puruQuad &other)
 {
-	PGE* pge = PGE::GetInstance();
-	GraphicsClass* gfx = pge->GetGraphics();
+	PGE& pge = PGE::GetInstance();
+	GraphicsClass* gfx = pge.GetGraphics(); //#TODO
 	
 	m_Bitmap = new BitmapClass();
 	*m_Bitmap = *(other.m_Bitmap);
@@ -49,8 +49,8 @@ puruQuad::~puruQuad()
 
 puruQuad & puruQuad::operator=(const puruQuad & other)
 {
-	PGE* pge = PGE::GetInstance();
-	GraphicsClass* gfx = pge->GetGraphics();
+	PGE& pge = PGE::GetInstance();
+	GraphicsClass* gfx = pge.GetGraphics(); //#TODO
 
 	m_texLeft = other.m_texLeft;
 	m_texTop = other.m_texTop;
@@ -78,15 +78,15 @@ puruQuad & puruQuad::operator=(const puruQuad & other)
 
 bool puruQuad::Initialize(puruTexture * texture, float texLeft, float texTop, unsigned int width, unsigned int height)
 {
-	PGE* pge = PGE::GetInstance();
-	GraphicsClass* gfx = pge->GetGraphics();
+	PGE& pge = PGE::GetInstance();
+	GraphicsClass* gfx = pge.GetGraphics(); //#TODO
 
 	m_texLeft = texLeft;
 	m_texTop = texTop;
 
 	m_Bitmap = new BitmapClass();
 
-	if (!(m_Bitmap->Initialize(gfx->GetDevice(), pge->Gfx_GetScreenWidth(), pge->Gfx_GetScreenHeight(), texture, width, height)))
+	if (!(m_Bitmap->Initialize(gfx->GetDevice(), pge.Gfx_GetScreenWidth(), pge.Gfx_GetScreenHeight(), texture, width, height)))
 	{
 		delete m_Bitmap;
 		m_Bitmap = nullptr;
@@ -159,8 +159,8 @@ void puruQuad::SetTextureLocations(float texLeft, float texTop)
 
 void puruQuad::Render(float scale)
 {
-	PGE* pge = PGE::GetInstance();
-	GraphicsClass* gfx = pge->GetGraphics();
+	PGE& pge = PGE::GetInstance();
+	GraphicsClass* gfx = pge.GetGraphics(); //#TODO
 	D3DXMATRIX worldMatrix, viewMatrix, orthoMatrix;
 
 	gfx->GetWorldMatrix(worldMatrix);

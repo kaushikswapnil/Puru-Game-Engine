@@ -40,8 +40,8 @@ bool puruFont::Initialize(char * fontDataFilename, char * textureFilename)
 		m_text = nullptr;
 	}
 
-	PGE* pge = PGE::GetInstance();
-	GraphicsClass* gfx = pge->GetGraphics();
+	PGE& pge = PGE::GetInstance();
+	GraphicsClass* gfx = pge.GetGraphics(); //#TODO
 	D3DXMATRIX baseViewMatrix;
 	FontShaderClass* ptrFontShader = nullptr;
 
@@ -61,8 +61,8 @@ bool puruFont::Initialize(char * fontDataFilename, char * textureFilename)
 		m_text = nullptr;
 		return false;
 	}
-
-	m_text->Initialize(gfx->GetDevice(), gfx->GetDeviceContext(), pge->Gfx_GetScreenWidth(), pge->Gfx_GetScreenHeight(), baseViewMatrix, ptrFontShader, fontDataFilename, textureFilename);
+	//#TODO
+	m_text->Initialize(gfx->GetDevice(), gfx->GetDeviceContext(), pge.Gfx_GetScreenWidth(), pge.Gfx_GetScreenHeight(), baseViewMatrix, ptrFontShader, fontDataFilename, textureFilename);
 
 	return true;
 }
@@ -71,8 +71,8 @@ void puruFont::printf(int x, int y, char* strToPrint, float red, float green, fl
 {
 	bool result;
 
-	PGE* pge = PGE::GetInstance();
-	GraphicsClass* gfx = pge->GetGraphics();
+	PGE& pge = PGE::GetInstance();
+	GraphicsClass* gfx = pge.GetGraphics();  //#TODO
 	D3DXMATRIX worldMatrix, orthomatrix;
 	ID3D11DeviceContext* deviceContext;
 
@@ -103,8 +103,8 @@ void puruFont::printf(int x, int y, std::string strToPrint, float red, float gre
 {
 	bool result;
 
-	PGE* pge = PGE::GetInstance();
-	GraphicsClass* gfx = pge->GetGraphics();
+	PGE& pge = PGE::GetInstance();
+	GraphicsClass* gfx = pge.GetGraphics();  //#TODO
 	D3DXMATRIX worldMatrix, orthomatrix;
 	ID3D11DeviceContext* deviceContext;
 
@@ -131,8 +131,8 @@ void puruFont::GetStringDimensions(char * strToPrint, float & width, float & hei
 {
 	bool result;
 
-	PGE* pge = PuruGameSystem::GetInstance();
-	GraphicsClass* gfx = pge->GetGraphics();
+	PGE& pge = PuruGameSystem::GetInstance();
+	GraphicsClass* gfx = pge.GetGraphics();  //#TODO
 
 	result = m_text->Print(100, 100, strToPrint, 1.0f, 1.0f, 1.0f, gfx->GetDeviceContext());
 	if (!result)
