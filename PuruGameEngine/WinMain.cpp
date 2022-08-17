@@ -11,7 +11,7 @@
 #include<iomanip>
 
 
-PGE* pge;
+PGE* pge_ptr;
 float dt = 0.0f;
 int FPS = 0;
 puruTexture ptex, pmouse;
@@ -39,20 +39,20 @@ void UpdateBG(float dt)
 }
 
 bool FrameFunc() {
-	if (pge->Input_IsKeyDown(PGEK_ESCAPE))
+	if (pge_ptr->Input_IsKeyDown(PGEK_ESCAPE))
 	{
 		return false;
 	}
-	UpdateBG(pge->Timer_GetDelta());
+	UpdateBG(pge_ptr->Timer_GetDelta());
 
 	return true;
 }
 
 bool RenderFunc() {
-	pge->Gfx_BeginScene(0);
+	pge_ptr->Gfx_BeginScene(0);
 	pQuad.RenderQuad();
 	gui.Render();
-	pge->Gfx_EndScene();
+	pge_ptr->Gfx_EndScene();
 	return true;
 }
 
@@ -61,7 +61,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	bool result;
 
 	//Create system object
-	PGE& pge = PuruGameSystem::GetInstance();
+	auto& pge = PuruGameSystem::GetInstance();
+	pge_ptr = &pge;
 
 	pge.System_SetState(PURU_FRAME, FrameFunc);
 	pge.System_SetState(PURU_RENDER, RenderFunc);

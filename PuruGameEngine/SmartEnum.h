@@ -1,6 +1,39 @@
 #pragma once
 
-//This macro should help us to apply a macro/function to all pass arguments
+#include <tuple>
+#include <iostream>
+#include <algorithm>
+
+//#####################
+//SmartEnum - Documentation
+//#####################
+//To create:
+//----------
+//	Use SMARTENUM(<enum name>, <element1>, <element2>, ...);
+//	You can also specify type by using SMARTENUM_T(<enum name>, <type>, <element1>, ..); 
+//	SMARTENUM(Color, Red, Green, Blue); //same as enum Color { Red, Green, Blue };
+//	SMARTENUM(Color, Red = 2, Green, Blue = 4);
+//----------
+//To assign to a variable;
+//----------
+//	Color color = Color::Red;
+//----------
+//To use with ostream:
+//----------
+//	std::cout << color; //Should print Red
+//----------
+//To use with switch:
+//----------
+//	switch (Color)
+//	{
+//		case Color::Red:
+//		case 4:
+//	}
+
+//Defines a const unsigned int _variadicArgumentsCount wherever you declare this. 
+#define MACRO_VARIADIC_ARGUMENT_COUNT(...) std::tuple_size<decltype(std::make_tuple(__VA_ARGS__))>::value
+
+//This macro should help us to apply a macro/function to all pass arguments. #TODO Find a better way to split and parse arguments
 #define MAP(macro, ...) \
     IDENTITY( \
         APPLY(CHOOSE_MAP_START, COUNT(__VA_ARGS__)) \
@@ -10,16 +43,22 @@
 
 #define APPLY(MACRO, ...) IDENTITY(MACRO(__VA_ARGS__))
 
-//This expands __VA_ARGS__ eagerly. This is because in MSVC preprocess, __VA_ARGS__ is taken to be a combined token, and is replaced after the sub macro is expanded, causing MSVC to sometimes read __VA_ARGS__ as a combination of all tokens.
+//This expands __VA_ARGS__ eagerly. This is because in MSVC preprocessor, __VA_ARGS__ is taken to be a combined token, and is replaced after the sub macro is expanded, causing MSVC to sometimes read __VA_ARGS__ as a combination of all tokens.
 #define IDENTITY(x) x
 
-#define MAP1(m, x) m(x)
+#define MAP1(m, x)      m(x)
 #define MAP2(m, x, ...) m(x) IDENTITY(MAP1(m, __VA_ARGS__))
 #define MAP3(m, x, ...) m(x) IDENTITY(MAP2(m, __VA_ARGS__))
 #define MAP4(m, x, ...) m(x) IDENTITY(MAP3(m, __VA_ARGS__))
+#define MAP5(m, x, ...) m(x) IDENTITY(MAP4(m, __VA_ARGS__))
+#define MAP6(m, x, ...) m(x) IDENTITY(MAP5(m, __VA_ARGS__))
+#define MAP7(m, x, ...) m(x) IDENTITY(MAP6(m, __VA_ARGS__))
+#define MAP8(m, x, ...) m(x) IDENTITY(MAP7(m, __VA_ARGS__))
 
-#define EVALUATE_COUNT(_1, _2, _3, _4, count, ...) count
-#define COUNT(...) IDENTITY(EVALUATE_COUNT(__VA_ARGS__, 4, 3, 2, 1))
+#define EVALUATE_COUNT(_1, _2, _3, _4, _5, _6, _7, _8, count, ...) count
+
+#define COUNT(...) \
+    IDENTITY(EVALUATE_COUNT(__VA_ARGS__, 8, 7, 6, 5, 4, 3, 2, 1))
 
 #define STRINGIZE_SINGLE(expression) #expression,
 #define STRINGIZE_MULTI_ARGUMENTS(...) IDENTITY(MAP(STRINGIZE_SINGLE, __VA_ARGS__))
@@ -36,53 +75,79 @@ struct _ArgumentToIntConverter //We use this struct to convert the enum values t
 #define PREFIX__ArgumentToIntConverter_SINGLE(expression) (_ArgumentToIntConverter)expression, //Keeping the comma
 #define PREFIX__ArgumentToIntConverter_MULTI_ARGUMENTS(...) IDENTITY(MAP(PREFIX__ArgumentToIntConverter_SINGLE, __VA_ARGS__))
 
-#define SMART_ENUM(_EnumName, ...) \
-	struct _EnumName \
+#define SMARTENUM(_Enumname, ...) \
+	struct _Enumname \
 	{ \
 		enum _Enumeration \
 		{ \
 			__VA_ARGS__ \
 		}; \
 		\
-		_EnumName(const _Enumeration& value) : m_Value(value) {} \
-		_EnumName(const _EnumName& other) : m_Value(other.m_Value) {} \
-		const _EnumName& operator=(const _Enumeration& value) { m_Value = value; } \
+		_Enumname(const _Enumeration& value) : m_Value(value) {} \
+		_Enumname(const _Enumname& other) : m_Value(other.m_Value) {} \
+		const _Enumname& operator=(const _Enumeration& value) { m_Value = value; } \
 		operator _Enumeration() { return static_cast<_Enumeration>(m_Value); } \
+        friend std::ostream &operator<<(std::ostream& outputStream, const _Enumname& smartEnum) \
+        { \
+            outputStream << smartEnum.ToString(); \
+            return outputStream; \
+        } \
 		\
+		const std::string& ToString() const \
+        { \
+            const int* const values = GetValues(); \
+			size_t index = 0; \
+			while (index < m_Count) \
+			{ \
+				if (values[index] == m_Value) \
+                    break; \
+				++index; \
+			} \
+            \
+            /*ASSERT HERE: Could not find index of enum value. Something is wrong. #TODO Have your own debug and assert system.*/\
+            return GetNames()[index]; \
+        } \
 		private: \
 		_Enumeration m_Value; \
 		\
-		static const size_t _count = IDENTITY(COUNT(__VA_ARGS__));
-\
-static const int* const _GetValues() \
-{ \
-static const int _values[] = { IDENTITY(PREFIX__ArgumentToIntConverter_MULTI_ARGUMENTS(__VA_ARGS__)) }; \
-return _values; \
-} \
-\
-static const char* const _GetNames() \
-{ \
-static const char* rawNames = { IDENTITY(STRINGIZE_MULTI_ARGUMENTS(__VA_ARGS__)) }; \
-\
-static char* processedNames[_count]; \ //Creating an array 
-static bool initialized = false; \
-\
-if (!initialized) \
-{ \
-for (size_t index = 0; index < _count; ++index) \
-{ \
-//remove offending characters
-size_t length = std::strcspn(rawNames[index], "=\t\n\r"); \ //strcspn returns the first index where any of the characters given matches
-\
-processedNames[index] = new char[length + 1]; \
-\
-std::strncpy(processedNames[index], rawNames[index], length); \//copy good characters
-\
-(processedNames[index])[length] = "\0"; \
-} \
-} \
-\
-return processedNames; \
-} \
-};
-
+        static constexpr size_t m_Count = MACRO_VARIADIC_ARGUMENT_COUNT(__VA_ARGS__); \
+		\
+		static const int* const GetValues() \
+		{ \
+			static const int values[] = { IDENTITY(PREFIX__ArgumentToIntConverter_MULTI_ARGUMENTS(__VA_ARGS__)) }; \
+			return values; \
+		} \
+        \
+		static constexpr bool IsUnwantedCharacterInName(const char c) \
+		{ \
+			switch(c) \
+			{ \
+				case ' ': \
+				case '=': \
+					return true; \
+					break; \
+				default: \
+					return isdigit(c); \
+					break; \
+			} \
+			\
+			return false; \
+		} \
+		static const std::string* const GetNames() \
+		{ \
+			static std::string names[] = { IDENTITY(STRINGIZE_MULTI_ARGUMENTS(__VA_ARGS__)) }; \
+			static bool initialized = false; \
+			\
+			if(!initialized) \
+			{ \
+				for (std::string& name : names) \
+				{ \
+					name.erase(std::remove_if(name.begin(), name.end(), &IsUnwantedCharacterInName), name.end()); \
+				} \
+				\
+				initialized = true; \
+			} \
+			return names; \
+		} \
+        \
+	}

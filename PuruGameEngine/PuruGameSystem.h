@@ -20,9 +20,8 @@ class FpsClass;
 class TimerClass;
 class CpuClass;
 
-class PuruGameSystem
+class PuruGameSystem : public Singleton<PuruGameSystem>
 {
-	pge_DECLARE_SINGLETON_SIMPLE(PuruGameSystem)
 public:
 
 	bool Initialize();

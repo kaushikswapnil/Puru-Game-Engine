@@ -1,12 +1,23 @@
 #pragma once
-#include"CCriticalSection.h"
+#include"CriticalSection.h"
 
+template <typename TClassName>
 class Singleton
 {
-public:
-	Singleton();
-	virtual ~Singleton();
-
 protected:
-	static CCriticalSection m_cs;
+	Singleton() = default;
+	virtual ~Singleton() = default;
+
+	
+
+public:
+	static TClassName& GetInstance() {
+		static TClassName instance;
+		return instance;
+	}
+
+	static TClassName* GetInstancePtr() {
+		return &(GetInstance());
+	}
 };
+

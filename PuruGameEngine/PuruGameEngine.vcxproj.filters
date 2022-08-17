@@ -39,9 +39,6 @@
     <ClInclude Include="CameraClass.h">
       <Filter>Source\Engine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="CCriticalSection.h">
-      <Filter>Source\Engine\Essentials</Filter>
-    </ClInclude>
     <ClInclude Include="ColorModelClass.h">
       <Filter>Source\Engine\Graphics</Filter>
     </ClInclude>
@@ -96,9 +93,6 @@
     <ClInclude Include="SoundFileClass.h">
       <Filter>Source\Engine\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="Singleton.h">
-      <Filter>Source\Engine\Essentials</Filter>
-    </ClInclude>
     <ClInclude Include="PuruGameSystem.h">
       <Filter>Source\Engine</Filter>
     </ClInclude>
@@ -129,13 +123,16 @@
     <ClInclude Include="SmartEnum.h">
       <Filter>Source\Engine\Essentials</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\CriticalSection.h">
+      <Filter>Source\Engine\Essentials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Singleton.h">
+      <Filter>Source\Engine\Essentials</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CCriticalSection.cpp">
-      <Filter>Source\Engine\Essentials</Filter>
     </ClCompile>
     <ClCompile Include="puruGUI.cpp">
       <Filter>Source\Engine\Graphics</Filter>
@@ -231,6 +228,9 @@
       <Filter>Source\Engine\Essentials</Filter>
     </ClCompile>
     <ClCompile Include="Singleton.cpp">
+      <Filter>Source\Engine\Essentials</Filter>
+    </ClCompile>
+    <ClCompile Include="CriticalSection.cpp">
       <Filter>Source\Engine\Essentials</Filter>
     </ClCompile>
   </ItemGroup>
