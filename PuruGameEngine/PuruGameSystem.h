@@ -23,7 +23,6 @@ class CpuClass;
 class PuruGameSystem : public Singleton<PuruGameSystem>
 {
 public:
-
 	bool Initialize();
 	void Shutdown();
 
@@ -32,9 +31,9 @@ public:
 	LRESULT CALLBACK MessageHandler(HWND, UINT, WPARAM, LPARAM);
 
 	//System functions
-	inline void System_SetState(puruCallBackState state, puruBoolCallback value) { m_SystemState.SetState(state, value); }
-	inline void System_SetState(puruBoolState state, bool value) { m_SystemState.SetState(state, value); }
-	inline void System_SetState(puruIntState state, int value) { m_SystemState.SetState(state, value); }
+	void System_SetState(puruCallBackState state, puruBoolCallback value);
+	void System_SetState(puruBoolState state, bool value) { m_SystemState.SetState(state, value); }
+	void System_SetState(puruIntState state, int value) { m_SystemState.SetState(state, value); }
 
 	//Graphics functions	
 	GraphicsClass* GetGraphics() { return &m_Graphics; }
@@ -70,17 +69,17 @@ private:
 
 	//Framework Classes
 	//#TODO replace all with references to non copyable classes
-	InputClass m_Input;
-	GraphicsClass m_Graphics;
-	SoundClass m_Sound;
+	InputClass m_Input{};
+	GraphicsClass m_Graphics{};
+	SoundClass m_Sound{};
 
 	//Timer and Performance classes
-	FpsClass m_Fps;
-	CpuClass m_Cpu;
-	TimerClass m_Timer;
+	FpsClass m_Fps{};
+	CpuClass m_Cpu{};
+	TimerClass m_Timer{};
 
 	//State handling classes
-	SystemState m_SystemState;
+	SystemState m_SystemState{};
 
 	float m_dtFrameCallTime;
 

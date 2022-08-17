@@ -18,7 +18,7 @@ BitmapClass::BitmapClass(const BitmapClass &other)
 	m_screenWidth = other.m_screenWidth;
 	m_screenHeight = other.m_screenHeight;
 
-	PGE& pge = PGE::GetInstance();
+	PGE& pge = PGE::GetInstancePure();
 	GraphicsClass* gfx = pge.GetGraphics(); //#TODO
 
 	InitializeBuffers(gfx->GetDevice());
@@ -43,7 +43,7 @@ BitmapClass & BitmapClass::operator=(const BitmapClass & other)
 	m_screenWidth = other.m_screenWidth;
 	m_screenHeight = other.m_screenHeight;
 
-	PGE& pge = PGE::GetInstance();
+	PGE& pge = PGE::GetInstancePure();
 	GraphicsClass* gfx = pge.GetGraphics(); //#TODO
 
 	InitializeBuffers(gfx->GetDevice());

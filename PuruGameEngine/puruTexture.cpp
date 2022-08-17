@@ -20,7 +20,7 @@ puruTexture::~puruTexture()
 
 bool puruTexture::Initialize(WCHAR * fileName, int width, int height)
 {
-	PGE& pge = PGE::GetInstance();
+	PGE& pge = PGE::GetInstancePure();
 	GraphicsClass* gfx = pge.GetGraphics(); //#TODO
 
 	m_Texture = new TextureClass();

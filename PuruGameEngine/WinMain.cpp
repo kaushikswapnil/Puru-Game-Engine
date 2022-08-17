@@ -61,12 +61,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	bool result;
 
 	//Create system object
-	auto& pge = PuruGameSystem::GetInstance();
+	auto& pge = PuruGameSystem::GetInstancePure();
 	pge_ptr = &pge;
 
-	pge.System_SetState(PURU_FRAME, FrameFunc);
-	pge.System_SetState(PURU_RENDER, RenderFunc);
-	pge.System_SetState(PURU_FPS, 60);
+	pge.System_SetState(puruCallBackState::PURU_FRAME, FrameFunc);
+	pge.System_SetState(puruCallBackState::PURU_RENDER, RenderFunc);
+	pge.System_SetState(puruIntState::PURU_FPS, 60);
 
 	//Initialize and run system object
 
@@ -79,8 +79,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		menu2 = new puruGUIMenuItem();
 		text1 = new puruGUIText(3, 300, 300, "Is it working", &fnt);
 		text2 = new puruGUIText(3, 300, 400, "I guess so", &fnt);
-		menu1->Initialize(1, &fnt, &snd, 300, 100, "Hello Pawan");
-		menu2->Initialize(2, &fnt, &snd, 300, 200, "Fuck Pawan");
+		menu1->Initialize(1, &fnt, &snd, 300, 100, "Menu 1");
+		menu2->Initialize(2, &fnt, &snd, 300, 200, "Menu 2");
 		gui.AddObject(menu1);
 		gui.AddObject(menu2);
 		gui.AddObject(text1);

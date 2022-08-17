@@ -11,13 +11,13 @@ protected:
 	
 
 public:
-	static TClassName& GetInstance() {
+	static TClassName& GetInstancePure() {
 		static TClassName instance;
 		return instance;
 	}
 
-	static TClassName* GetInstancePtr() {
-		return &(GetInstance());
+	static TClassName* GetInstance() {
+		return &(GetInstancePure());
 	}
 };
 

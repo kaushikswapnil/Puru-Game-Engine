@@ -115,6 +115,11 @@ LRESULT PuruGameSystem::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, LPAR
 	return DefWindowProc(hwnd, umsg, wparam, lparam);
 }
 
+void PuruGameSystem::System_SetState(puruCallBackState state, puruBoolCallback value)
+{
+	m_SystemState.SetState(state, value);
+}
+
 void PuruGameSystem::Gfx_BeginScene(float red, float green, float blue, float a)
 {
 	m_Graphics.BeginScene(red, green, blue, a);

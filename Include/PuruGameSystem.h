@@ -13,17 +13,13 @@ class FpsClass;
 class TimerClass;
 class CpuClass;
 
-class PuruGameSystem : public Singleton
+class PuruGameSystem : public Singleton<PuruGameSystem>
 {
 public:
-	static PuruGameSystem*	GetInstance();
-
 	~PuruGameSystem();
 
 	bool Initialize();
 	void Shutdown();
-	void DestroyInstance();
-
 	void Run();
 
 	LRESULT CALLBACK MessageHandler(HWND, UINT, WPARAM, LPARAM);
@@ -57,10 +53,6 @@ public:
 	int Cpu_GetCpuUsage();
 
 private:
-	PuruGameSystem();
-	PuruGameSystem(const PuruGameSystem&) = delete;
-	PuruGameSystem& operator=(const PuruGameSystem& other) = delete;
-	static PuruGameSystem* m_pgeInstance;
 
 	bool Frame();
 	void InitializeWindows(int&, int&);

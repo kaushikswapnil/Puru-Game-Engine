@@ -21,7 +21,7 @@ puruSound::~puruSound()
 bool puruSound::Initialize(char * filename)
 {
 	bool result;
-	PGE& pge = PGE::GetInstance();
+	PGE& pge = PGE::GetInstancePure();
 	SoundClass* snd = pge.GetSound(); //#TODO
 
 	m_sound = new SoundFileClass();

@@ -22,7 +22,7 @@ puruQuad::puruQuad(puruTexture * texture, float texLeft, float texTop, unsigned 
 
 puruQuad::puruQuad(const puruQuad &other)
 {
-	PGE& pge = PGE::GetInstance();
+	PGE& pge = PGE::GetInstancePure();
 	GraphicsClass* gfx = pge.GetGraphics(); //#TODO
 	
 	m_Bitmap = new BitmapClass();
@@ -49,7 +49,7 @@ puruQuad::~puruQuad()
 
 puruQuad & puruQuad::operator=(const puruQuad & other)
 {
-	PGE& pge = PGE::GetInstance();
+	PGE& pge = PGE::GetInstancePure();
 	GraphicsClass* gfx = pge.GetGraphics(); //#TODO
 
 	m_texLeft = other.m_texLeft;
@@ -78,7 +78,7 @@ puruQuad & puruQuad::operator=(const puruQuad & other)
 
 bool puruQuad::Initialize(puruTexture * texture, float texLeft, float texTop, unsigned int width, unsigned int height)
 {
-	PGE& pge = PGE::GetInstance();
+	PGE& pge = PGE::GetInstancePure();
 	GraphicsClass* gfx = pge.GetGraphics(); //#TODO
 
 	m_texLeft = texLeft;
@@ -159,7 +159,7 @@ void puruQuad::SetTextureLocations(float texLeft, float texTop)
 
 void puruQuad::Render(float scale)
 {
-	PGE& pge = PGE::GetInstance();
+	PGE& pge = PGE::GetInstancePure();
 	GraphicsClass* gfx = pge.GetGraphics(); //#TODO
 	D3DXMATRIX worldMatrix, viewMatrix, orthoMatrix;
 
